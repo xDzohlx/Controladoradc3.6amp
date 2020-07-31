@@ -11,7 +11,3 @@ Canales completamente mezclados para conducir un robot en modo diferencial. Se l
 http://creativecommons.org/licenses/by-nc-sa/4.0/
 
  Licencia de creative commons.
-
-is licensed under a Creative Commons Reconocimiento-NoComercial-CompartirIgual 4.0 Internacional License.
-Creado a partir de la obra en https://twitter.com/xdzohlx.
-Puede hallar permisos más allá de los concedidos con esta licencia en https://drive.google.com/drive/folders/1O96mzn1CRl4ApRMyKDYdhcAGqXFwC5sP?usp=sharingControladora electrónica de velocidad de 3.6 amp de dc by Sol esta basado en otra tarjeta similar deAldo Bucio
