@@ -2,7 +2,7 @@
  * Controladora con ppm.cpp
  *
  * Created: 28/07/2020 19:50:39
- * Author : Usuario
+ * Author : xDzohlx
  */ 
 
 //input canal 1 pa0,
