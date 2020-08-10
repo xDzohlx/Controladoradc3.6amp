@@ -2,7 +2,7 @@
  * Controladora con ppm.cpp
  *
  * Created: 28/07/2020 19:50:39
- * Author : xDzohlx
+ * Author : Usuario
  */ 
 
 //input canal 1 pa0,
@@ -38,11 +38,15 @@ volatile static uint16_t canal[6];
 volatile static uint16_t canal_3 = 0x0000;
 volatile static uint8_t motor1pwm = 0x00;
 volatile static uint8_t motor2pwm = 0x00;
+volatile static uint8_t ledpwm[2];
 uint16_t offsetgiro = 0x00;
 uint16_t offsetaccel = 0x00;
 int cont = 0;
 
 bool button = true; 
+bool primero = false;
+bool segundo = false;
+bool tercero = false;
 bool seleccion = false;
 bool forward = false;
 bool adelante = false;
@@ -56,10 +60,10 @@ void setup(){
 
 	//dos canales controlados por interrupcion
 	DDRA = (1<<PORTA1);//
-	DDRC = (1<<PORTC4)|(1<<PORTC0)|(1<<PORTC3)|(1<<PORTC1);
+	DDRC = (1<<PORTC4)|(1<<PORTC0)|(1<<PORTC3)|(1<<PORTC1)|(1<<PORTC6);
 	PUEB = (1<<PORTB6)|(1<<PORTB4);
 	PORTB = (1<<PORTB6)|(1<<PORTB4);
-
+	PORTC |= (1<<PORTC6);
 	PCICR = (1<<PCIE0);
 	PCMSK0 |= (1<<PCINT0);//|(1<<PCINT1);//|(1<<PCINT4);//interrucpciones canales
 	//timer0 8 bit
@@ -106,7 +110,39 @@ void setup(){
 	accel_val = canal[1];
 }
 //INTERRUPCIONES PARA LECTURA DE RC
-
+void pwmled(){
+			if (TCNT0==255&&primero){
+				ledpwm[0]++;
+				primero = false;
+			}
+			if(TCNT0!=255){
+				primero=true;
+			}
+			if (ledpwm[0]==255&&segundo){
+				ledpwm[1]++;
+				segundo = false;
+			}
+			if(ledpwm[0]!=255){
+				segundo = true;
+			}
+			if (ledpwm[1]==255){
+				tercero = !tercero;	
+			}
+			if (TCNT0==0){
+				if (tercero){
+					PORTC |= (1<<PORTC6);
+				}else{
+					PORTC &= ~(1<<PORTC6);
+				}
+			}
+			if (ledpwm[1]>=TCNT0){
+				if (tercero){
+					PORTC &= ~(1<<PORTC6);
+					}else{
+					PORTC |= (1<<PORTC6);
+				}
+			}
+}
 ISR(PCINT0_vect){
 if (!(PINA & 0x01)){
 	if (cont > 0){
@@ -148,6 +184,7 @@ int main(void){
 		//_------------------------
 		if (accel_control>=accel_val){//MOTOR A
 			//PORTA &= ~(1<<PORTA1);//arm
+				//PORTC |= (1<<PORTC6);
 			accel_val_2 = accel_control - accel_val;
 			if (accel_val_2>510)
 			{
@@ -160,6 +197,7 @@ int main(void){
 			//PORTC |= (1<<PORTC1);//arm
 			OCR0A = accel_val_2;
 			}else{
+					//PORTC &= ~(1<<PORTC6);
 				accel_val_2=accel_val-accel_control;
 				if (accel_val_2>510)
 				{
@@ -199,7 +237,8 @@ int main(void){
 			TOCPMCOE &= ~(1<<TOCC3OE);
 			//TCCR0A &= ~(1<<COM0A0);
 			OCR0B = giro_val_2;
-		}	
+		}
+pwmled();
 		}//arm
 	OCR0A = 0x00;//hard stop
 	OCR0B = 0x00;
