@@ -8,9 +8,12 @@ Especificaciones:
 El driver de los motores es muy confiable y a prueba de balas lo que se necesita para el combate de robots
 Canales completamente mezclados para conducir un robot en modo diferencial. Se leen dos canales de pwm en cualquier protocolo de envío de 50 a 100 hz. También esta la version de firmware con lectura de ppm en un solo cable con decodificador de un canal para la activación de un servo u otro actuador.
 Los esquematicos y la placa estan diseñadas en Eagle
+Se tiene que programar el fusible de divisor entre 8 negado para tener 8 Mhz de rejo interno
+
 http://creativecommons.org/licenses/by-nc-sa/4.0/
 
  Licencia de creative commons.
+ 
 Manual de operacion
 Caracteristicas
 
