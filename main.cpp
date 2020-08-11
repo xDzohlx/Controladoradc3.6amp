@@ -38,11 +38,15 @@ volatile static uint16_t canal[6];
 volatile static uint16_t canal_3 = 0x0000;
 volatile static uint8_t motor1pwm = 0x00;
 volatile static uint8_t motor2pwm = 0x00;
+volatile static uint8_t ledpwm[2];
 uint16_t offsetgiro = 0x00;
 uint16_t offsetaccel = 0x00;
 int cont = 0;
 
 bool button = true; 
+bool primero = false;
+bool segundo = false;
+bool tercero = false;
 bool seleccion = false;
 bool forward = false;
 bool adelante = false;
@@ -56,7 +60,7 @@ void setup(){
 
 	//dos canales controlados por interrupcion
 	DDRA = (1<<PORTA1);//
-	DDRC = (1<<PORTC4)|(1<<PORTC0)|(1<<PORTC3)|(1<<PORTC1);
+	DDRC = (1<<PORTC4)|(1<<PORTC0)|(1<<PORTC3)|(1<<PORTC1)|(1<<PORTC6);
 	PUEB = (1<<PORTB6)|(1<<PORTB4);
 	PORTB = (1<<PORTB6)|(1<<PORTB4);
 
@@ -104,9 +108,37 @@ void setup(){
 	giro_val = canal[0];
 	_delay_ms(100);
 	accel_val = canal[1];
+	PORTC |= (1<<PORTC6);
 }
 //INTERRUPCIONES PARA LECTURA DE RC
-
+void pwmled(){
+				if (TCNT0>=0&&primero){
+					//PORTC |= (1<<PORTC6);
+					primero = false;
+					ledpwm[0]++;
+					if (segundo){
+						PORTC |= (1<<PORTC6);
+						}else{
+						PORTC &= ~(1<<PORTC6);
+					}
+				}
+				if (TCNT0>=ledpwm[0]&&!primero){
+					//PORTC &= ~(1<<PORTC6);
+					primero = true;
+					if (segundo){
+						PORTC &= ~(1<<PORTC6);
+						}else{
+						PORTC |= (1<<PORTC6);
+					}
+				}
+				if (ledpwm[0]==255&&tercero){
+					segundo = !segundo;
+					tercero=false;
+				}
+				if (ledpwm[0]==0){
+					tercero = true;
+				}
+}
 ISR(PCINT0_vect){
 if (!(PINA & 0x01)){
 	if (cont > 0){
@@ -200,6 +232,7 @@ int main(void){
 			//TCCR0A &= ~(1<<COM0A0);
 			OCR0B = giro_val_2;
 		}	
+		pwmled();
 		}//arm
 	OCR0A = 0x00;//hard stop
 	OCR0B = 0x00;
