@@ -1,6 +1,6 @@
 # Controladoradc3.6amp
 Controladora electronica de velocidad de 3.6 amperios hasta 25 volts V1.1
-Esta es la versión 1.0 de la tarjeta controladora fue diseñada por Carlos Vega, la selección de componentes del driver y el microcontrolador por Aldo Bucio. Está basada en otra paca diseñada por Aldo bucio hace tiempo. Perdí el primer archivo de la placa pero estan los archivos gerberpero estan los de la version 1.1.
+Esta es la versión 1.1 de la tarjeta controladora fue diseñada por Carlos Vega, la selección de componentes del driver y el microcontrolador por Aldo Bucio. Está basada en otra paca diseñada por Aldo bucio hace tiempo. Perdí el primer archivo de la placa pero estan los archivos gerberpero estan los de la version 1.1.
 
 Especificaciones:
 4 celdas de litio polímero, hasta 25 volts absolutos(por los capacitores de puede aumentar la tensión hasta 32 volts absolutos limitados por el regulador)
