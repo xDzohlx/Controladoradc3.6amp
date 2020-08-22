@@ -114,7 +114,6 @@ ISR(PCINT0_vect){
 			rx= true;
 		TCNT1 = 0x00;
 		cont= 0;
-		byte = 0;//creo que es redundante
 		}
 	}
 	PCMSK0 &= ~(1<<PCINT0);// se desactiba esta instruccion momentanemente
