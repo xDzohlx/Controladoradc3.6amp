@@ -37,6 +37,8 @@ bool tercero = false;
 bool dch1 = false;
 bool dch2 = false;
 bool rx = false;
+bool par = true;
+bool dato_valido[24];
 void setup(){
 
 	//dos canales controlados por interrupcion
@@ -66,7 +68,8 @@ void setup(){
 	TCCR1A = 0x00;//TIMER1 16 BIT TIEMPOS contador de rc
 	TCCR1B = (1<<WGM12)|(1<<CS11);//|(1<<CS10);
 	OCR1A = 0x0A;//validador de rc checar failsafe 898
-	TIMSK1 = (1<<OCIE1A);//(1<<TOIE1)|
+	OCR1B = 0x1B58;
+	TIMSK1 = (1<<OCIE1A)|(1<<OCIE1B);//(1<<TOIE1)|
 	TCNT1 = 0x0000;
 	sei();//inicio de interrupciones
 	_delay_ms(5000);
@@ -114,6 +117,8 @@ ISR(PCINT0_vect){
 			rx= true;
 		TCNT1 = 0x00;
 		cont= 0;
+		dato[byte] &= ~(1 << cont);
+		par = true;
 		}
 	}
 	PCMSK0 &= ~(1<<PCINT0);// se desactiba esta instruccion momentanemente
@@ -121,20 +126,34 @@ ISR(PCINT0_vect){
 ISR(TIMER1_COMPA_vect){//lectura de bit
 	if(rx){
 	cont++;
-	if (cont>10){
-		cont = 0;
+	if (cont>11){
+		cont = 0;//creo que es redundante
 		byte++;
 		PCMSK0 |= (1<<PCINT0);
 	}
 	if (PINA & 0x01){//bit es igual a 1
 		dato[byte] |= (1 << cont);
+		par = !par;
 	}else{//bit es igual a 0
 		dato[byte] &= ~(1 << cont);
+	}
+	if (cont==9){
+		if (par){
+			dato_valido[byte] = true;
+		}else{
+			dato_valido[byte] = false;
+		}
 	}
 	if (byte==24){
 		byte = 0;
 		rx = false;
 	}
+	}
+}
+ISR(TIMER1_COMPB_vect){//prepararse para nueva recepción de datos
+	byte = 0;//inicio de bytes
+	for (int i = 0;i<25;i++){
+		dato_valido[i] = false;//inicio de seguridad
 	}
 }
 int main(void){
