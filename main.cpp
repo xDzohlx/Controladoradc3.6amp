@@ -36,7 +36,7 @@ bool segundo = false;
 bool tercero = false;
 bool dch1 = false;
 bool dch2 = false;
-bool rx = false;
+bool rx = true;
 bool par = true;
 bool dato_valido[24];
 void setup(){
@@ -67,8 +67,8 @@ void setup(){
 	OCR0B = 0x00;
 	TCCR1A = 0x00;//TIMER1 16 BIT TIEMPOS contador de rc
 	TCCR1B = (1<<WGM12)|(1<<CS11);//|(1<<CS10);
-	OCR1A = 0x0A;//validador de rc checar failsafe 898
-	OCR1B = 0x1B58;
+	OCR1A = 0x05;//validador de rc checar failsafe 898
+	OCR1B = 0xFA0;
 	TIMSK1 = (1<<OCIE1A)|(1<<OCIE1B);//(1<<TOIE1)|
 	TCNT1 = 0x0000;
 	sei();//inicio de interrupciones
@@ -112,15 +112,11 @@ void pwmled(){
 }
 //INTERRUPCIONES PARA LECTURA DE RC
 ISR(PCINT0_vect){
-	if (!(PINA & 0x01)){
-		if (rx){
 			rx= true;
 		TCNT1 = 0x00;
 		cont= 0;
 		dato[byte] &= ~(1 << cont);
 		par = true;
-		}
-	}
 	PCMSK0 &= ~(1<<PCINT0);// se desactiba esta instruccion momentanemente
 }
 ISR(TIMER1_COMPA_vect){//lectura de bit
@@ -132,6 +128,7 @@ ISR(TIMER1_COMPA_vect){//lectura de bit
 		PCMSK0 |= (1<<PCINT0);
 	}
 	if (PINA & 0x01){//bit es igual a 1
+	PORTA |= (1<<PORTA1);
 		dato[byte] |= (1 << cont);
 		par = !par;
 	}else{//bit es igual a 0
@@ -154,6 +151,7 @@ ISR(TIMER1_COMPB_vect){//prepararse para nueva recepción de datos
 	byte = 0;//inicio de bytes
 	for (int i = 0;i<25;i++){
 		dato_valido[i] = false;//inicio de seguridad
+		PCMSK0 |= (1<<PCINT0);
 	}
 }
 int main(void){
