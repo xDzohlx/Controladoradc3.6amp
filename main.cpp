@@ -128,7 +128,7 @@ ISR(TIMER1_COMPA_vect){//lectura de bit
 		PCMSK0 |= (1<<PCINT0);
 	}
 	if (PINA & 0x01){//bit es igual a 1
-		dato[byte] |= 1 << cont;
+		dato[byte] |= (1 << cont);
 	}else{//bit es igual a 0
 		dato[byte] &= ~(1 << cont);
 	}
