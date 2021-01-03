@@ -150,6 +150,12 @@ if (!(PINA & 0x01)){
 		giro = canal[0];
 		accel = canal[1];
 	}
+		if (cont == 0){//flanco de subida canal 1
+		PORTA |= (1<<PORTA1);
+		}
+		if (cont == 1){//flanco de subida canal 1
+		PORTA &= ~(1<<PORTA1);
+		}
 	TCNT1 = 0x00;
 	cont++;
 }
