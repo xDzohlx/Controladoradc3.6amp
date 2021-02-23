@@ -63,7 +63,7 @@ void setup(){
 	DDRC = (1<<PORTC4)|(1<<PORTC0)|(1<<PORTC3)|(1<<PORTC1)|(1<<PORTC6);
 	PUEB = (1<<PORTB6)|(1<<PORTB4);
 	PORTB = (1<<PORTB6)|(1<<PORTB4);
-
+	PORTC |= (1<<PORTC6);
 	PCICR = (1<<PCIE0);
 	PCMSK0 |= (1<<PCINT0);//|(1<<PCINT1);//|(1<<PCINT4);//interrucpciones canales
 	//timer0 8 bit
