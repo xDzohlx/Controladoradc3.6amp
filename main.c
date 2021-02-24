@@ -69,12 +69,12 @@ void setup(){
 	PCMSK0 |= (1<<PCINT0);//|(1<<PCINT1);//|(1<<PCINT4);//interrucpciones canales
 	//timer0 8 bit
 	TCCR0A |= (1<<COM0A0)|(1<<COM0A1)|(1<<WGM00)|(1<<WGM01)|(1<<COM0B1)|(1<<COM0B0);
-	TCCR0B |= (1<<CS00);
+	TCCR0B |= (1<<CS01);
 
-	TOCPMSA0 |= (1<<TOCC3S0);
-	
-	TOCPMSA1 |= (1<<TOCC4S0);
-	
+	//TOCPMSA0 |= (1<<TOCC3S0);
+	//
+	//TOCPMSA1 |= (1<<TOCC4S0);
+	//
 	TOCPMSA0 &= ~(1<<TOCC0S0);
 	TOCPMSA0 &= ~(1<<TOCC1S0); 
 	
@@ -106,10 +106,8 @@ void setup(){
 
 
 	_delay_ms(5000);
-	giro_val = canal[0];
-	_delay_ms(100);
-	accel_val = canal[1];
-	PORTC |= (1<<PORTC6);
+	accel_val = accel;
+
 }
 //INTERRUPCIONES PARA LECTURA DE RC
 void pwmled(){
@@ -142,24 +140,8 @@ void pwmled(){
 }
 ISR(PCINT0_vect){
 if (!(PINA & 0x01)){
-	if (cont > 0){
-		canal[cont -1]=TCNT1;
-		giro = canal[0];
-		accel = canal[1];
-	}
-			if (cont == 0){//flanco de subida canal 1
-				PORTA |= (1<<PORTA1);
-			}
-			if (cont == 1){//flanco de subida canal 1
-				PORTA &= ~(1<<PORTA1);
-				PORTA |= (1<<PORTA2);
-			}
-			if (cont == 2){//flanco de bajada canal 1 y subida canal 2
-				PORTA &= ~(1<<PORTA2);
-			}
-	TCNT1 = 0x00;
-	cont++;
-}
+		accel =TCNT1;
+}else{	TCNT1 = 0x00;}
 }
 //contador useg
 ISR(TIMER1_COMPA_vect){
@@ -178,8 +160,9 @@ int main(void){
 				accel_val_2 = 510;
 			}
 			accel_val_2 = accel_val_2 * (0.5);//
-			TOCPMCOE |= (1<<TOCC0OE);//motor a
-			TOCPMCOE &= ~(1<<TOCC1OE);
+						TOCPMCOE &= ~(1<<TOCC1OE);
+						TOCPMCOE &= ~(1<<TOCC4OE);
+			TOCPMCOE |= (1<<TOCC0OE)|(1<<TOCC3OE);
 			TCCR0A |= (1<<COM0A0);
 			//PORTC |= (1<<PORTC1);//arm
 			OCR0A = accel_val_2;
@@ -191,39 +174,14 @@ int main(void){
 				}
 			accel_val_2 = (accel_val_2)*(0.5);
 			//PORTA |= (1<<PORTA1);//arm
-			TOCPMCOE |= (1<<TOCC1OE);//motor a
+						TOCPMCOE &= ~(1<<TOCC3OE);
+						TOCPMCOE &= ~(1<<TOCC0OE);
+			TOCPMCOE |= (1<<TOCC1OE)|(1<<TOCC4OE);
+			
 			TOCPMCOE &= ~(1<<TOCC0OE);
 			//TCCR0A &= ~(1<<COM0A0);			
 			OCR0A = accel_val_2;
 		}	
-		if (giro>=giro_val){//MOTOR B
-			//PORTA &= ~(1<<PORTA1);//arm
-			
-			giro_val_2 = giro - giro_val;
-			if (giro_val_2>510)
-			{
-				giro_val_2 = 510;
-			}
-			giro_val_2 = giro_val_2 * (0.5);
-			TOCPMCOE |= (1<<TOCC3OE);//motor a
-			TOCPMCOE &= ~(1<<TOCC4OE);
-			//TCCR0A |= (1<<COM0A0);
-			//PORTC |= (1<<PORTC1);//arm
-			OCR0B = giro_val_2;
-			}else{
-			giro_val_2=giro_val-giro;
-			if (giro_val_2>510)
-			{
-				giro_val_2 = 510;
-			}
-			giro_val_2 = (giro_val_2)*(0.5);
-			//PORTA |= (1<<PORTA1);//arm
-			TOCPMCOE |= (1<<TOCC4OE);//motor a
-			TOCPMCOE &= ~(1<<TOCC3OE);
-			//TCCR0A &= ~(1<<COM0A0);
-			OCR0B = giro_val_2;
-		}	
-		pwmled();
 		}//arm
 	OCR0A = 0x00;//hard stop
 	OCR0B = 0x00;
