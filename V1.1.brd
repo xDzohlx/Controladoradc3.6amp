@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="9.5.1">
+<eagle version="9.6.2">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
@@ -74,9 +74,9 @@
 <board>
 <plain>
 <wire x1="0" y1="0" x2="15" y2="0" width="0" layer="20"/>
-<wire x1="15" y1="0" x2="15" y2="35" width="0" layer="20"/>
-<wire x1="15" y1="35" x2="0" y2="35" width="0" layer="20"/>
-<wire x1="0" y1="35" x2="0" y2="0" width="0" layer="20"/>
+<wire x1="15" y1="0" x2="15" y2="35.939596875" width="0" layer="20"/>
+<wire x1="15" y1="35.939596875" x2="0" y2="35.939596875" width="0" layer="20"/>
+<wire x1="0" y1="35.939596875" x2="0" y2="0" width="0" layer="20"/>
 <rectangle x1="16.510059375" y1="18.255015625" x2="16.644259375" y2="18.322134375" layer="22" rot="R90"/>
 <rectangle x1="16.543559375" y1="18.959715625" x2="16.610759375" y2="19.026834375" layer="22" rot="R90"/>
 <rectangle x1="16.44289375" y1="16.577171875" x2="16.57719375" y2="16.644278125" layer="22" rot="R90"/>
@@ -9127,11 +9127,6 @@ design rules under a new name.</description>
 <attribute name="TP_SIGNAL_NAME" value="" x="8.60939375" y="-1.44" size="1" layer="37"/>
 <attribute name="VALUE" x="7.97439375" y="0.338" size="0.0254" layer="27"/>
 </element>
-<element name="TP2" library="testpad" library_urn="urn:adsk.eagle:library:385" package="TP13SQ" package3d_urn="urn:adsk.eagle:package:27974/1" value="TPTP13SQ" x="3.70658125" y="1.1" smashed="yes">
-<attribute name="POPULARITY" value="0" x="34.18658125" y="-45.89" size="1.778" layer="27" display="off"/>
-<attribute name="TP_SIGNAL_NAME" value="" x="3.70658125" y="-1.44" size="1" layer="37"/>
-<attribute name="VALUE" x="3.07158125" y="0.338" size="0.0254" layer="27"/>
-</element>
 <element name="TP3" library="testpad" library_urn="urn:adsk.eagle:library:385" package="TP13SQ" package3d_urn="urn:adsk.eagle:package:27974/1" value="TPTP13SQ" x="10.149396875" y="1.1" smashed="yes">
 <attribute name="POPULARITY" value="0" x="45.709396875" y="-45.89" size="1.778" layer="27" display="off"/>
 <attribute name="TP_SIGNAL_NAME" value="" x="10.149396875" y="-1.44" size="1" layer="37"/>
@@ -9229,26 +9224,33 @@ design rules under a new name.</description>
 <signal name="N$5">
 <contactref element="DRIVERMOTOR2" pad="8"/>
 <contactref element="MOTOR2" pad="2"/>
-<wire x1="8.625" y1="29.375" x2="8.625" y2="31.685" width="0.8128" layer="1"/>
-<wire x1="8.625" y1="31.685" x2="9.39" y2="32.45" width="0.8128" layer="1"/>
+<contactref element="DRIVERMOTOR1" pad="8"/>
+<contactref element="MOTOR1" pad="2"/>
+<wire x1="2.783" y1="33.7735" x2="3.7185" y2="34.709" width="1.27" layer="1"/>
+<wire x1="3.7185" y1="34.709" x2="5.0415" y2="34.709" width="1.27" layer="1"/>
+<wire x1="2.783" y1="33.293" x2="2.783" y2="33.7735" width="1.27" layer="1"/>
+<wire x1="7.3005" y1="32.45" x2="9.39" y2="32.45" width="1.27" layer="1"/>
+<wire x1="1.84" y1="32.35" x2="2.783" y2="33.293" width="1.27" layer="1"/>
+<wire x1="5.0415" y1="34.709" x2="7.3005" y2="32.45" width="1.27" layer="1"/>
+<wire x1="9.39" y1="32.45" x2="8.625" y2="31.685" width="1.016" layer="1"/>
+<wire x1="8.625" y1="31.685" x2="8.625" y2="29.375" width="1.016" layer="1"/>
+<wire x1="1.84" y1="32.35" x2="1.805" y2="32.315" width="1.016" layer="1"/>
+<wire x1="1.805" y1="32.315" x2="1.805" y2="29.375" width="1.016" layer="1"/>
 </signal>
 <signal name="N$6">
 <contactref element="DRIVERMOTOR2" pad="6"/>
 <contactref element="MOTOR2" pad="1"/>
-<wire x1="11.165" y1="29.375" x2="11.165" y2="31.685" width="0.8128" layer="1"/>
-<wire x1="11.165" y1="31.685" x2="11.93" y2="32.45" width="0.8128" layer="1"/>
-</signal>
-<signal name="N$7">
-<contactref element="DRIVERMOTOR1" pad="8"/>
-<contactref element="MOTOR1" pad="2"/>
-<wire x1="1.84" y1="32.35" x2="1.805" y2="32.315" width="0.8128" layer="1"/>
-<wire x1="1.805" y1="32.315" x2="1.805" y2="29.375" width="0.8128" layer="1"/>
-</signal>
-<signal name="N$8">
 <contactref element="DRIVERMOTOR1" pad="6"/>
 <contactref element="MOTOR1" pad="1"/>
-<wire x1="4.38" y1="32.35" x2="4.345" y2="32.315" width="0.8128" layer="1"/>
-<wire x1="4.345" y1="32.315" x2="4.345" y2="29.375" width="0.8128" layer="1"/>
+<wire x1="10.0515" y1="34.809" x2="10.987" y2="33.8735" width="1.27" layer="16"/>
+<wire x1="10.987" y1="33.8735" x2="10.987" y2="33.393" width="1.27" layer="16"/>
+<wire x1="10.987" y1="33.393" x2="11.93" y2="32.45" width="1.27" layer="16"/>
+<wire x1="4.38" y1="32.35" x2="6.839" y2="34.809" width="1.27" layer="16"/>
+<wire x1="6.839" y1="34.809" x2="10.0515" y2="34.809" width="1.27" layer="16"/>
+<wire x1="4.38" y1="32.35" x2="4.345" y2="32.315" width="1.016" layer="1"/>
+<wire x1="4.345" y1="32.315" x2="4.345" y2="29.375" width="1.016" layer="1"/>
+<wire x1="11.93" y1="32.45" x2="11.165" y2="31.685" width="1.016" layer="1"/>
+<wire x1="11.165" y1="31.685" x2="11.165" y2="29.375" width="1.016" layer="1"/>
 </signal>
 <signal name="GND">
 <contactref element="DRIVERMOTOR1" pad="1"/>
@@ -9343,8 +9345,8 @@ design rules under a new name.</description>
 <wire x1="7.1" y1="26.4" x2="7.2" y2="26.5" width="0.8128" layer="1"/>
 <polygon width="0.2" layer="16">
 <vertex x="0" y="0"/>
-<vertex x="0" y="35"/>
-<vertex x="15" y="35"/>
+<vertex x="0" y="35.939596875"/>
+<vertex x="15" y="35.939596875"/>
 <vertex x="15" y="0"/>
 </polygon>
 <wire x1="6.52" y1="6.01105" x2="4.73895" y2="6.01105" width="0.508" layer="1"/>
@@ -9422,8 +9424,8 @@ design rules under a new name.</description>
 <via x="9.8" y="3" extent="1-16" drill="0.35"/>
 <polygon width="0.2" layer="1">
 <vertex x="0" y="0"/>
-<vertex x="0" y="35"/>
-<vertex x="15" y="35"/>
+<vertex x="0" y="35.93959375"/>
+<vertex x="15" y="35.93959375"/>
 <vertex x="15" y="0"/>
 </polygon>
 <wire x1="11.89895625" y1="10.39895625" x2="11.89895625" y2="9.7" width="0.508" layer="1"/>
@@ -9448,7 +9450,6 @@ design rules under a new name.</description>
 <wire x1="6.616428125" y1="3.6530375" x2="8.201403125" y2="2.0680625" width="0.3048" layer="16"/>
 <wire x1="8.201403125" y1="2.0680625" x2="8.8680625" y2="2.0680625" width="0.3048" layer="16"/>
 <wire x1="8.8680625" y1="2.0680625" x2="9.8" y2="3" width="0.3048" layer="16"/>
-<wire x1="11.69105" y1="8.60895" x2="10.805353125" y2="8.791934375" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="V+">
 <contactref element="DRIVERMOTOR2" pad="5"/>
@@ -9598,23 +9599,6 @@ design rules under a new name.</description>
 <contactref element="U1" pad="6"/>
 <wire x1="8.42" y1="6.01105" x2="8.42" y2="5.024228125" width="0.508" layer="1"/>
 <wire x1="8.42" y1="5.024228125" x2="8.76845625" y2="4.675771875" width="0.508" layer="1"/>
-</signal>
-<signal name="CANAL2">
-<contactref element="TP2" pad="TP"/>
-<contactref element="U3" pad="10"/>
-<via x="6.36443125" y="4.776509375" extent="1-16" drill="0.35"/>
-<wire x1="6.36443125" y1="4.776509375" x2="6.36443125" y2="13.33556875" width="0.508" layer="16"/>
-<wire x1="6.36443125" y1="13.33556875" x2="4.76845625" y2="14.93154375" width="0.508" layer="16"/>
-<via x="4.76845625" y="14.93154375" extent="1-16" drill="0.35"/>
-<wire x1="4.76845625" y1="14.93154375" x2="4.567115625" y2="15.132884375" width="0.508" layer="1"/>
-<wire x1="4.567115625" y1="15.132884375" x2="3.58445625" y2="15.132884375" width="0.508" layer="1"/>
-<wire x1="3.58445625" y1="15.132884375" x2="2.865225" y2="14.413653125" width="0.508" layer="1"/>
-<wire x1="3.70658125" y1="1.1" x2="3.70658125" y2="1.8273875" width="0.254" layer="1"/>
-<wire x1="5.58545" y1="2.773" x2="5.777" y2="2.96455" width="0.254" layer="1"/>
-<wire x1="5.777" y1="2.96455" x2="5.777" y2="4.189078125" width="0.254" layer="1"/>
-<wire x1="5.777" y1="4.189078125" x2="6.36443125" y2="4.776509375" width="0.254" layer="1"/>
-<wire x1="4.65219375" y1="2.773" x2="5.58545" y2="2.773" width="0.254" layer="1"/>
-<wire x1="3.70658125" y1="1.8273875" x2="4.65219375" y2="2.773" width="0.254" layer="1"/>
 </signal>
 </signals>
 <mfgpreviewcolors>
