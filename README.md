@@ -10,3 +10,8 @@ Gracias por usar la tarjeta controladora electrónica de velocidad. Característ
 
 El modo de operación viene preprogramdo, como lectura independiente de PWM, PPM, mezclados, bidireccionales o canal sencillo de mayor corriente estos modos son el firmware de la controladora. Modo PWM. El canal 1 es el volate y el canal 2 es el acelerador, el primero controla los giros mientras que el segundo controla el acelerador y la reversa. Modo PPM. En el canal 1 se conecta la señal PPM, el canal 1 es el volante y el canal 2 es el acelerador. El cable del canal dos es un decodificador del canal 3. En cualquiera de los modos cuenta con auto calibración al encendido por lo que se tiene que dar un tiempo a esto de 5 segundos antes de mover cualquier valor del radiocontrol. El led muestra el estado de la controladora.
 Un video probando la tarjeta: https://t.co/X4io4Tz9yK?amp=1
+
+Otros videos arreglando issues:
+https://youtube.com/live/U84N-yGLdbo?feature=share
+
+https://youtube.com/live/5lfUKTcOBrQ?feature=share
